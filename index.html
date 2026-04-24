@@ -1,496 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muhammad Aryan – Full Stack Developer</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muhammad Aryan – Software Engineer</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0a0a0a;
-      --bg2: #111111;
-      --bg3: #171717;
-      --border: #222;
-      --yellow: #e6cd0f;
-      --yellow2: #f6df86;
-      --white: #fafafa;
-      --muted: #888;
-      --text: #d0d0d0;
-      --blue: #3b82f6;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#060608;--bg2:#0d0d12;--bg3:#12121a;--border:#1e1e2e;
+      --yellow:#e6cd0f;--yellow2:#f6df86;
+      --white:#f0f0f8;--muted:#6b6b8a;--text:#b0b0c8;
+      --blue:#6366f1;--purple:#8b5cf6;--cyan:#22d3ee;
     }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
 
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      line-height: 1.6;
-      min-height: 100vh;
+    /* ── NOISE OVERLAY ── */
+    body::before{
+      content:'';position:fixed;inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events:none;z-index:0;opacity:.4;
     }
 
     /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5%;
-      height: 64px;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 6%;height:64px;
+      background:rgba(6,6,8,.8);backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
     }
-    .logo { color: var(--white); font-size: 1.3rem; font-weight: 700; letter-spacing: -0.5px; }
-    .logo span { color: var(--yellow); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      color: var(--muted); text-decoration: none; font-size: 0.9rem;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--white); }
+    .logo{color:var(--white);font-size:1.25rem;font-weight:800;letter-spacing:-1px}
+    .logo span{background:linear-gradient(135deg,var(--yellow),var(--yellow2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;transition:color .2s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--yellow);transition:width .2s}
+    .nav-links a:hover{color:var(--white)}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .nav-links a.active{color:var(--yellow)}
 
     /* ── SECTIONS ── */
-    section { padding: 100px 5%; }
-    .section-label {
-      font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--yellow); margin-bottom: 12px;
-    }
-    .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      color: var(--white); font-weight: 700; margin-bottom: 16px;
-      line-height: 1.2;
-    }
-    .section-sub { color: var(--muted); max-width: 540px; font-size: 1rem; }
-    .divider {
-      width: 48px; height: 3px;
-      background: var(--yellow); margin: 20px 0 40px;
-      border-radius: 2px;
-    }
+    section{padding:110px 6%;position:relative;z-index:1}
+    .inner{max-width:1100px;margin:0 auto}
+    .label{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);margin-bottom:10px;font-weight:600}
+    .title{font-size:clamp(1.8rem,4vw,2.8rem);color:var(--white);font-weight:800;margin-bottom:12px;line-height:1.15}
+    .sub{color:var(--muted);max-width:540px;font-size:1rem}
+    .divider{width:40px;height:3px;background:linear-gradient(90deg,var(--yellow),var(--purple));margin:18px 0 40px;border-radius:2px}
 
     /* ── HERO ── */
-    #home {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding-top: 64px;
+    #home{min-height:100vh;display:flex;align-items:center;padding-top:64px}
+    /* radial glow bg */
+    #home::after{
+      content:'';position:absolute;
+      width:600px;height:600px;border-radius:50%;
+      background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 70%);
+      top:50%;left:50%;transform:translate(-50%,-50%);
+      pointer-events:none;
     }
-    .hero-inner {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      gap: 60px; width: 100%; max-width: 1100px; margin: 0 auto;
+    .hero-inner{display:flex;align-items:center;justify-content:space-between;gap:60px;width:100%}
+    .hero-left{flex:1}
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(230,205,15,.07);border:1px solid rgba(230,205,15,.2);
+      border-radius:100px;padding:5px 16px;
+      font-size:.78rem;color:var(--yellow2);letter-spacing:1px;margin-bottom:24px;
     }
-    .hero-left { flex: 1; }
-    .hero-badge {
-      display: inline-block;
-      background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 100px; padding: 4px 16px;
-      font-size: 0.78rem; color: var(--yellow);
-      letter-spacing: 1px; margin-bottom: 24px;
+    .hero-badge span{width:7px;height:7px;background:var(--yellow);border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+    .hero-title{font-size:clamp(2.2rem,5.5vw,3.8rem);color:var(--white);font-weight:800;line-height:1.1;margin-bottom:22px}
+    .grad{background:linear-gradient(135deg,var(--yellow) 0%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hero-desc{color:var(--muted);font-size:1.05rem;margin-bottom:36px;max-width:480px;line-height:1.7}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:11px 26px;border-radius:8px;font-size:.95rem;font-weight:600;text-decoration:none;cursor:pointer;transition:all .2s;border:none;display:inline-block}
+    .btn-primary{background:linear-gradient(135deg,var(--yellow),#c9b400);color:#000}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(230,205,15,.25)}
+    .btn-outline{background:transparent;color:var(--white);border:1px solid var(--border)}
+    .btn-outline:hover{border-color:var(--yellow);color:var(--yellow);transform:translateY(-2px)}
+    .hero-right{flex-shrink:0;position:relative}
+    .avatar-ring{
+      width:280px;height:280px;border-radius:50%;
+      background:linear-gradient(135deg,var(--yellow),var(--purple));
+      padding:3px;position:relative;
     }
-    .hero-title {
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      color: var(--white); font-weight: 800;
-      line-height: 1.15; margin-bottom: 20px;
+    .avatar-ring::before{
+      content:'';position:absolute;inset:-10px;border-radius:50%;
+      background:radial-gradient(circle,rgba(139,92,246,.25) 0%,transparent 70%);
+      animation:glow 3s ease-in-out infinite alternate;
     }
-    .hero-title .accent { color: var(--yellow); }
-    .hero-desc { color: var(--muted); font-size: 1.05rem; margin-bottom: 36px; max-width: 480px; }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn {
-      padding: 11px 26px; border-radius: 8px;
-      font-size: 0.95rem; font-weight: 600;
-      text-decoration: none; cursor: pointer;
-      transition: all .2s; border: none; display: inline-block;
-    }
-    .btn-primary { background: var(--yellow); color: #000; }
-    .btn-primary:hover { background: var(--yellow2); transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent; color: var(--white);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
-
-    .hero-right { flex-shrink: 0; }
-    .avatar-wrap {
-      width: 260px; height: 260px;
-      border-radius: 50%; overflow: hidden;
-      border: 3px solid var(--yellow);
-      box-shadow: 0 0 60px rgba(230,205,15,0.15);
-      background: var(--bg3);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 5rem;
-    }
+    @keyframes glow{from{opacity:.5}to{opacity:1}}
+    .avatar-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--bg3)}
+    .avatar-inner img{width:100%;height:100%;object-fit:cover}
 
     /* ── ABOUT ── */
-    #about { background: var(--bg2); }
-    .about-inner {
-      display: flex; gap: 60px; align-items: flex-start;
-      max-width: 1100px; margin: 0 auto; flex-wrap: wrap;
+    #about{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+    .about-text p{color:var(--text);margin-bottom:16px;font-size:1rem;line-height:1.75}
+    .about-text p strong{color:var(--white)}
+    .about-cards{display:flex;flex-direction:column;gap:14px}
+    .about-card{
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:12px;padding:20px;
+      transition:border-color .2s,transform .2s;
     }
-    .about-text { flex: 1; min-width: 280px; }
-    .about-text p { color: var(--text); margin-bottom: 16px; font-size: 1rem; }
-    .about-text p strong { color: var(--white); }
-    .about-stats { display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
-    .stat { }
-    .stat-num { font-size: 2rem; font-weight: 800; color: var(--yellow); }
-    .stat-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .about-card:hover{border-color:rgba(230,205,15,.3);transform:translateX(4px)}
+    .about-card-title{color:var(--white);font-weight:700;font-size:.95rem;margin-bottom:4px}
+    .about-card-sub{color:var(--muted);font-size:.85rem}
 
-    /* ── SKILLS ── */
-    #skills { max-width: 1100px; margin: 0 auto; }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
+    /* ── TECH STACK ── */
+    #stack{background:var(--bg2)}
+    .stack-groups{display:flex;flex-direction:column;gap:40px}
+    .stack-group-title{
+      font-size:.8rem;letter-spacing:2px;text-transform:uppercase;
+      color:var(--purple);font-weight:600;margin-bottom:16px;
     }
-    .skill-card {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 12px; padding: 20px;
-      transition: border-color .2s, transform .2s;
+    .tags-wrap{display:flex;flex-wrap:wrap;gap:10px}
+    .tech-tag{
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:8px;padding:8px 16px;
+      font-size:.85rem;color:var(--text);
+      display:flex;align-items:center;gap:8px;
+      transition:all .2s;cursor:default;
     }
-    .skill-card:hover { border-color: var(--yellow); transform: translateY(-2px); }
-    .skill-icon { font-size: 1.6rem; margin-bottom: 8px; }
-    .skill-name { color: var(--white); font-weight: 600; font-size: 0.95rem; }
-    .skill-desc { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+    .tech-tag:hover{border-color:rgba(230,205,15,.4);color:var(--white);transform:translateY(-2px)}
+    .tech-tag .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+    .dot-yellow{background:var(--yellow)}
+    .dot-purple{background:var(--purple)}
+    .dot-cyan{background:var(--cyan)}
+    .dot-blue{background:var(--blue)}
 
-    /* ── PROJECTS ── */
-    #projects { background: var(--bg2); }
-    .projects-inner { max-width: 1100px; margin: 0 auto; }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px;
+    /* ── PROJECT ── */
+    #projects{background:var(--bg)}
+    .project-card{
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:16px;padding:36px;
+      position:relative;overflow:hidden;
+      transition:border-color .3s,transform .3s;
     }
-    .project-card {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 14px; padding: 28px;
-      transition: border-color .2s, transform .2s;
-      display: flex; flex-direction: column;
+    .project-card::before{
+      content:'';position:absolute;top:-80px;right:-80px;
+      width:240px;height:240px;border-radius:50%;
+      background:radial-gradient(circle,rgba(139,92,246,.12) 0%,transparent 70%);
+      pointer-events:none;
     }
-    .project-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
-    .project-tag {
-      display: inline-block; background: rgba(230,205,15,0.1);
-      color: var(--yellow); border-radius: 100px;
-      padding: 2px 12px; font-size: 0.75rem;
-      font-weight: 600; margin-bottom: 14px;
-      border: 1px solid rgba(230,205,15,0.2);
+    .project-card:hover{border-color:rgba(230,205,15,.3);transform:translateY(-4px)}
+    .proj-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .proj-tag{
+      background:rgba(230,205,15,.08);color:var(--yellow);
+      border:1px solid rgba(230,205,15,.2);
+      border-radius:100px;padding:3px 14px;font-size:.75rem;font-weight:600;
     }
-    .project-name { color: var(--white); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
-    .project-desc { color: var(--muted); font-size: 0.9rem; flex: 1; margin-bottom: 20px; }
-    .project-stack { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-    .tag {
-      background: var(--bg2); color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 6px; padding: 2px 10px; font-size: 0.75rem;
+    .proj-links{display:flex;gap:12px}
+    .proj-link{
+      color:var(--muted);text-decoration:none;font-size:.85rem;
+      display:flex;align-items:center;gap:6px;
+      transition:color .2s;
     }
-    .project-links { display: flex; gap: 12px; }
-    .project-link {
-      color: var(--muted); text-decoration: none; font-size: 0.85rem;
-      display: flex; align-items: center; gap: 4px;
-      transition: color .2s;
-    }
-    .project-link:hover { color: var(--yellow); }
+    .proj-link:hover{color:var(--yellow)}
+    .proj-name{color:var(--white);font-size:1.4rem;font-weight:800;margin-bottom:14px}
+    .proj-desc{color:var(--muted);font-size:.95rem;line-height:1.7;margin-bottom:24px}
+    .proj-stack{display:flex;flex-wrap:wrap;gap:8px}
+    .stag{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:3px 12px;font-size:.78rem;color:var(--text)}
 
     /* ── CONTACT ── */
-    #contact { max-width: 680px; margin: 0 auto; text-align: center; }
-    .contact-links {
-      display: flex; gap: 16px; justify-content: center;
-      flex-wrap: wrap; margin-top: 32px;
+    #contact{background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);text-align:center}
+    .contact-inner{max-width:680px;margin:0 auto}
+    .contact-form{
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:16px;padding:36px;margin:36px 0;text-align:left;
     }
-    .contact-link {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 10px; padding: 14px 22px;
-      text-decoration: none; color: var(--text);
-      font-size: 0.9rem; transition: all .2s;
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+    .form-group label{font-size:.8rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase}
+    .form-group input,.form-group textarea{
+      background:var(--bg2);border:1px solid var(--border);
+      border-radius:8px;padding:12px 16px;color:var(--white);font-size:.95rem;
+      font-family:inherit;outline:none;transition:border-color .2s;resize:none;
     }
-    .contact-link:hover { border-color: var(--yellow); color: var(--white); transform: translateY(-2px); }
-    .contact-icon { font-size: 1.2rem; }
+    .form-group input:focus,.form-group textarea:focus{border-color:rgba(230,205,15,.4)}
+    .form-group input::placeholder,.form-group textarea::placeholder{color:var(--muted)}
+    .form-group textarea{min-height:120px}
+    .btn-send{width:100%;padding:13px;font-size:1rem;border-radius:8px;cursor:pointer;
+      background:linear-gradient(135deg,var(--yellow),#c9b400);color:#000;font-weight:700;
+      border:none;transition:all .2s}
+    .btn-send:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(230,205,15,.25)}
+    .contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .contact-link{
+      display:flex;align-items:center;gap:10px;
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:10px;padding:13px 20px;
+      text-decoration:none;color:var(--text);font-size:.88rem;
+      transition:all .2s;
+    }
+    .contact-link:hover{border-color:rgba(230,205,15,.3);color:var(--white);transform:translateY(-2px)}
 
     /* ── FOOTER ── */
-    footer {
-      text-align: center; padding: 32px;
-      border-top: 1px solid var(--border);
-      color: var(--muted); font-size: 0.85rem;
-    }
+    footer{text-align:center;padding:28px;border-top:1px solid var(--border);color:var(--muted);font-size:.82rem;position:relative;z-index:1}
 
-    /* ── SCROLL ANIMATION ── */
-    .reveal {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .reveal.visible { opacity: 1; transform: none; }
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal-left.visible{opacity:1;transform:none}
+    .reveal-right{opacity:0;transform:translateX(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal-right.visible{opacity:1;transform:none}
 
-    /* ── TYPING CURSOR ── */
-    .cursor { border-right: 2px solid var(--yellow); animation: blink .7s infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .cursor{border-right:2px solid var(--yellow);animation:blink .7s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-    @media(max-width:768px) {
-      .hero-inner { flex-direction: column-reverse; text-align: center; }
-      .hero-btns { justify-content: center; }
-      .hero-desc { margin: 0 auto 36px; }
-      .about-inner { flex-direction: column; }
-      nav { padding: 0 4%; }
-      .nav-links { gap: 1.2rem; }
+    @media(max-width:768px){
+      .hero-inner{flex-direction:column-reverse;text-align:center}
+      .hero-btns{justify-content:center}
+      .hero-desc{margin:0 auto 36px}
+      .about-grid{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
+      .avatar-ring{width:220px;height:220px}
+      nav{padding:0 4%}
+      .nav-links{gap:1.2rem}
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <div class="logo">Aryan<span>.</span></div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<!-- NAV -->
+<nav>
+  <div class="logo">Aryan<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <!-- HERO -->
-  <section id="home">
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-badge">📍 Islamabad, Pakistan</div>
-        <h1 class="hero-title">
-          Building <span class="accent">Data-Driven</span><br/>
-          Web Applications<br/>
-          <span id="typed" class="accent"></span><span class="cursor" id="cursor">|</span>
-        </h1>
-        <p class="hero-desc">
-          Self-taught developer with 8+ months hands-on experience in data engineering and full stack development. I build systems that handle real data at scale — from Kafka pipelines to production web apps.
-        </p>
-        <div class="hero-btns">
-          <a href="#projects" class="btn btn-primary">View Projects</a>
-          <a href="#contact" class="btn btn-outline">Get In Touch</a>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="avatar-wrap">🧑‍💻</div>
+<!-- HERO -->
+<section id="home">
+  <div class="hero-inner inner">
+    <div class="hero-left">
+      <div class="hero-badge"><span></span> Open to opportunities — Islamabad, Pakistan</div>
+      <h1 class="hero-title">
+        Full Stack Developer<br/>
+        <span class="grad">Building Systems</span><br/>
+        <span id="typed"></span><span class="cursor">|</span>
+      </h1>
+      <p class="hero-desc">
+        Self-taught engineer with hands-on experience building distributed data systems, real-time pipelines, and production web applications. I think in systems — not just features.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
       </div>
     </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="about-inner reveal">
-      <div class="about-text">
-        <div class="section-label">About Me</div>
-        <h2 class="section-title">The Story Behind the Code</h2>
-        <div class="divider"></div>
-        <p>
-          I'm <strong>Muhammad Aryan</strong>, a self-taught developer from Peshawar, now based in Islamabad. I started with data analytics, went deep into data engineering — building production pipelines with Kafka, PySpark, Airflow, and BigQuery — and now I'm channeling that systems thinking into full stack web development.
-        </p>
-        <p>
-          What makes me different: I don't just build UIs. I understand <strong>how data flows through systems</strong>, how to design databases properly, and how to build backends that can actually scale. Most developers learn web first. I learned scale first.
-        </p>
-        <p>
-          I completed FSc and have been building real projects through self-directed learning for over 8 months. I learn fast, build fast, and I'm not afraid of hard problems.
-        </p>
-        <div class="about-stats">
-          <div class="stat">
-            <div class="stat-num">8+</div>
-            <div class="stat-label">Months Building</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">3</div>
-            <div class="stat-label">Production Projects</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">∞</div>
-            <div class="stat-label">Problems Debugged</div>
-          </div>
+    <div class="hero-right reveal-right">
+      <div class="avatar-ring">
+        <div class="avatar-inner">
+          <img src="picofme.png" alt="Muhammad Aryan" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:5rem;\'>🧑‍💻</div>'"/>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SKILLS -->
-  <section id="skills">
-    <div style="max-width:1100px;margin:0 auto">
-      <div class="section-label reveal">What I Work With</div>
-      <h2 class="section-title reveal">Skills & Stack</h2>
-      <div class="divider reveal"></div>
-      <div class="skills-grid">
-        <div class="skill-card reveal">
-          <div class="skill-icon">⚡</div>
-          <div class="skill-name">Apache Kafka</div>
-          <div class="skill-desc">Real-time event streaming, multi-broker clusters, KRaft mode</div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <div class="label reveal">Who I Am</div>
+    <h2 class="title reveal">About Me</h2>
+    <div class="divider reveal"></div>
+    <div class="about-grid">
+      <div class="about-text reveal-left">
+        <p>I'm <strong>Muhammad Aryan</strong>, a self-taught software engineer from Peshawar, now building in Islamabad. I spent 8+ months going deep into data engineering — building production pipelines with Kafka, PySpark, Airflow, and cloud infrastructure on AWS and GCP.</p>
+        <p>What separates me from most developers: I understand systems at a fundamental level. I know how data moves, how distributed systems fail, how to design databases that don't break under load. I'm now applying that foundation to full stack web development.</p>
+        <p>No degree. No shortcuts. Just consistent, self-directed learning and real projects that run in production.</p>
+      </div>
+      <div class="about-cards reveal-right">
+        <div class="about-card">
+          <div class="about-card-title">🎓 Education</div>
+          <div class="about-card-sub">FSc — Self-taught Engineer. 8+ months of deep, project-based learning.</div>
         </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">🔥</div>
-          <div class="skill-name">PySpark</div>
-          <div class="skill-desc">Distributed batch processing, structured streaming, Delta Lake</div>
+        <div class="about-card">
+          <div class="about-card-title">📍 Location</div>
+          <div class="about-card-sub">Islamabad, Pakistan — open to on-site, hybrid, and remote roles.</div>
         </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">🐍</div>
-          <div class="skill-name">Python</div>
-          <div class="skill-desc">Production-level code, FastAPI, data pipelines, automation</div>
+        <div class="about-card">
+          <div class="about-card-title">🎯 Focus</div>
+          <div class="about-card-sub">Backend systems, data pipelines, distributed infrastructure, and full stack web apps.</div>
         </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">☁️</div>
-          <div class="skill-name">AWS</div>
-          <div class="skill-desc">S3, IAM, Athena — data lake architecture on cloud</div>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">🗄️</div>
-          <div class="skill-name">Databases</div>
-          <div class="skill-desc">PostgreSQL, MongoDB, BigQuery, Redis, Cassandra</div>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">🐳</div>
-          <div class="skill-name">Docker</div>
-          <div class="skill-desc">Containerization, Docker Compose, multi-service environments</div>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">🌊</div>
-          <div class="skill-name">Airflow</div>
-          <div class="skill-desc">DAG orchestration, scheduled pipelines, failure handling</div>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">🌐</div>
-          <div class="skill-name">Web Dev</div>
-          <div class="skill-desc">HTML, CSS, JavaScript, React — learning & building fast</div>
+        <div class="about-card">
+          <div class="about-card-title">⚡ Approach</div>
+          <div class="about-card-sub">Build real things. Understand the fundamentals. Move fast without breaking production.</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="projects-inner">
-      <div class="section-label reveal">What I've Built</div>
-      <h2 class="section-title reveal">Projects</h2>
-      <div class="divider reveal"></div>
-      <div class="projects-grid">
+<!-- STACK -->
+<section id="stack">
+  <div class="inner">
+    <div class="label reveal">What I Use</div>
+    <h2 class="title reveal">Tech Stack</h2>
+    <div class="divider reveal"></div>
+    <div class="stack-groups">
 
-        <div class="project-card reveal">
-          <span class="project-tag">Data Engineering</span>
-          <div class="project-name">Daraz Intel — Price Intelligence Pipeline</div>
-          <div class="project-desc">
-            Automated pipeline scraping ~600 products daily from Daraz.pk across 5 categories. Runs quality checks, loads to Google BigQuery, orchestrated by Apache Airflow on Docker. Tracks price history daily for trend analysis.
-          </div>
-          <div class="project-stack">
-            <span class="tag">Python</span>
-            <span class="tag">Airflow</span>
-            <span class="tag">BigQuery</span>
-            <span class="tag">Docker</span>
-            <span class="tag">pandas</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/aryanlytics/daraz-intel" target="_blank" class="project-link">⬡ GitHub</a>
-          </div>
+      <div class="reveal">
+        <div class="stack-group-title">⚡ Data Engineering & Streaming</div>
+        <div class="tags-wrap">
+          <div class="tech-tag"><span class="dot dot-yellow"></span>Apache Kafka</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>Apache Flink</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>Apache Airflow</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>PySpark</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>Delta Lake</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>dbt</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>Debezium CDC</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>Parquet</div>
         </div>
+      </div>
 
-        <div class="project-card reveal">
-          <span class="project-tag">Data Engineering</span>
-          <div class="project-name">Real Estate Intelligence Pipeline</div>
-          <div class="project-desc">
-            ETL pipeline scraping Islamabad property listings from Graana.com. Handles multi-unit normalization (Marla/Kanal/sqft), Pakistani price labeling (Crore/Lac), data quality validation, and loads to BigQuery partitioned by date.
-          </div>
-          <div class="project-stack">
-            <span class="tag">Python</span>
-            <span class="tag">BigQuery</span>
-            <span class="tag">Pydantic</span>
-            <span class="tag">pandas</span>
-            <span class="tag">Docker</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/aryanlytics/Real-Estate-Intelligence" target="_blank" class="project-link">⬡ GitHub</a>
-          </div>
+      <div class="reveal">
+        <div class="stack-group-title">☁️ Cloud & Infrastructure</div>
+        <div class="tags-wrap">
+          <div class="tech-tag"><span class="dot dot-cyan"></span>AWS S3</div>
+          <div class="tech-tag"><span class="dot dot-cyan"></span>AWS IAM</div>
+          <div class="tech-tag"><span class="dot dot-cyan"></span>AWS Athena</div>
+          <div class="tech-tag"><span class="dot dot-cyan"></span>Google BigQuery</div>
+          <div class="tech-tag"><span class="dot dot-cyan"></span>Azure (learning)</div>
+          <div class="tech-tag"><span class="dot dot-cyan"></span>Docker</div>
+          <div class="tech-tag"><span class="dot dot-cyan"></span>Docker Compose</div>
+          <div class="tech-tag"><span class="dot dot-cyan"></span>GitHub Actions</div>
         </div>
+      </div>
 
-        <div class="project-card reveal">
-          <span class="project-tag">Streaming + Cloud</span>
-          <div class="project-name">E-Commerce Event Intelligence Platform</div>
-          <div class="project-desc">
-            Real-time + batch data platform. Kafka with 2-broker KRaft cluster ingests 40 events/sec across 4 topics. Python consumer writes Bronze Parquet to AWS S3 with data quality checks and quarantine layer. PySpark Silver transformation with Delta Lake.
-          </div>
-          <div class="project-stack">
-            <span class="tag">Kafka</span>
-            <span class="tag">PySpark</span>
-            <span class="tag">AWS S3</span>
-            <span class="tag">Delta Lake</span>
-            <span class="tag">Docker</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/aryanlytics" target="_blank" class="project-link">⬡ GitHub</a>
-          </div>
+      <div class="reveal">
+        <div class="stack-group-title">🗄️ Databases</div>
+        <div class="tags-wrap">
+          <div class="tech-tag"><span class="dot dot-purple"></span>PostgreSQL</div>
+          <div class="tech-tag"><span class="dot dot-purple"></span>MongoDB</div>
+          <div class="tech-tag"><span class="dot dot-purple"></span>Redis</div>
+          <div class="tech-tag"><span class="dot dot-purple"></span>Cassandra</div>
+          <div class="tech-tag"><span class="dot dot-purple"></span>DuckDB</div>
+          <div class="tech-tag"><span class="dot dot-purple"></span>BigQuery</div>
         </div>
+      </div>
 
+      <div class="reveal">
+        <div class="stack-group-title">🐍 Languages & Backend</div>
+        <div class="tags-wrap">
+          <div class="tech-tag"><span class="dot dot-blue"></span>Python</div>
+          <div class="tech-tag"><span class="dot dot-blue"></span>FastAPI</div>
+          <div class="tech-tag"><span class="dot dot-blue"></span>SQLAlchemy</div>
+          <div class="tech-tag"><span class="dot dot-blue"></span>Pydantic</div>
+          <div class="tech-tag"><span class="dot dot-blue"></span>Tenacity</div>
+          <div class="tech-tag"><span class="dot dot-blue"></span>SQL</div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="stack-group-title">🌐 Frontend (Learning)</div>
+        <div class="tags-wrap">
+          <div class="tech-tag"><span class="dot dot-yellow"></span>HTML & CSS</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>JavaScript</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>React</div>
+          <div class="tech-tag"><span class="dot dot-yellow"></span>Tailwind CSS</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT -->
+<section id="projects">
+  <div class="inner">
+    <div class="label reveal">What I've Built</div>
+    <h2 class="title reveal">Projects</h2>
+    <div class="divider reveal"></div>
+    <div class="project-card reveal">
+      <div class="proj-top">
+        <span class="proj-tag">Data Engineering · Real-Time + Batch</span>
+        <div class="proj-links">
+          <a href="https://github.com/aryanlytics/ecom-intelligence" target="_blank" class="proj-link">
+            ⬡ GitHub
+          </a>
+        </div>
+      </div>
+      <div class="proj-name">Ecommerce Intelligence</div>
+      <div class="proj-desc">
+        End-to-end data platform for a simulated global e-commerce system. Generates 40+ realistic events/second across 4 Kafka topics using a 2-broker KRaft cluster. A Python consumer applies data quality checks and writes Bronze Parquet to AWS S3, partitioned by topic/date/hour with a quarantine layer for bad records.<br/><br/>
+        PySpark batch jobs transform Bronze → Silver with schema validation, deduplication, and Delta Lake for ACID guarantees. Designed for ML feature extraction — clickstream data feeds a recommendation pipeline. Airflow orchestrates daily batch jobs with retry logic and SLA monitoring.
+      </div>
+      <div class="proj-stack">
+        <span class="stag">Kafka</span>
+        <span class="stag">PySpark</span>
+        <span class="stag">Delta Lake</span>
+        <span class="stag">AWS S3</span>
+        <span class="stag">Airflow</span>
+        <span class="stag">Docker</span>
+        <span class="stag">Python</span>
+        <span class="stag">dbt</span>
+        <span class="stag">PyArrow</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-label reveal">Let's Talk</div>
-    <h2 class="section-title reveal">Get In Touch</h2>
-    <div class="divider reveal" style="margin:20px auto 16px"></div>
-    <p class="reveal" style="color:var(--muted);margin-bottom:8px">
-      I'm open to internships, junior roles, and freelance projects. If you're building something interesting — reach out.
-    </p>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="label reveal">Let's Talk</div>
+    <h2 class="title reveal">Get In Touch</h2>
+    <div class="divider reveal" style="margin:18px auto 12px"></div>
+    <p class="reveal" style="color:var(--muted)">Open to internships, junior roles, and freelance projects. Send a message and I'll reply within 24 hours.</p>
+
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="f-name" placeholder="Your name"/>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="f-email" placeholder="your@email.com"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" id="f-subject" placeholder="Project Inquiry / Collaboration / Hiring"/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="f-msg" placeholder="Hi Aryan, I found your portfolio and would like to discuss..."></textarea>
+      </div>
+      <button class="btn-send" onclick="sendEmail()">Send Message →</button>
+    </div>
+
     <div class="contact-links reveal">
-      <a href="mailto:aryanlytics@gmail.com" class="contact-link">
-        <span class="contact-icon">✉️</span> aryanlytics@gmail.com
-      </a>
-      <a href="https://github.com/aryanlytics" target="_blank" class="contact-link">
-        <span class="contact-icon">⬡</span> GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/muhammadaryan008/" target="_blank" class="contact-link">
-        <span class="contact-icon">💼</span> LinkedIn
-      </a>
-      <a href="https://wa.me/923400407475" target="_blank" class="contact-link">
-        <span class="contact-icon">💬</span> WhatsApp
-      </a>
+      <a href="https://github.com/aryanlytics" target="_blank" class="contact-link">⬡ GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammadaryan008/" target="_blank" class="contact-link">💼 LinkedIn</a>
+      <a href="https://wa.me/923400407475?text=Hi%20Aryan%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20opportunities." target="_blank" class="contact-link">💬 WhatsApp</a>
+      <a href="mailto:aryanlytics@gmail.com?subject=Project%20Inquiry%20from%20Portfolio&body=Hi%20Muhammad%20Aryan%2C%0A%0AI%20found%20your%20portfolio%20online%20and%20would%20like%20to%20discuss%20a%20collaboration." class="contact-link">✉️ Email</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2026 Muhammad Aryan — Built with HTML, CSS & JavaScript</p>
-  </footer>
+<footer>
+  <p>© 2026 Muhammad Aryan · Built with HTML, CSS & JavaScript · Islamabad, Pakistan</p>
+</footer>
 
-  <script>
-    // ── Typing animation ──
-    const phrases = ["that actually scales.", "with real data pipelines.", "for the modern web."];
-    let pi = 0, ci = 0, deleting = false;
-    const el = document.getElementById("typed");
+<script>
+  // ── Typing ──
+  const phrases = ["that actually scales.","with real pipelines.","for the modern web.","backed by data."];
+  let pi=0,ci=0,del=false;
+  const el=document.getElementById("typed");
+  function type(){
+    const p=phrases[pi];
+    if(!del){el.textContent=p.slice(0,++ci);if(ci===p.length){del=true;setTimeout(type,1800);return}}
+    else{el.textContent=p.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length}}
+    setTimeout(type,del?38:75);
+  }
+  type();
 
-    function type() {
-      const phrase = phrases[pi];
-      if (!deleting) {
-        el.textContent = phrase.slice(0, ++ci);
-        if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
-      } else {
-        el.textContent = phrase.slice(0, --ci);
-        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
-      }
-      setTimeout(type, deleting ? 40 : 80);
-    }
-    type();
+  // ── Scroll reveal ──
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")});
+  },{threshold:.1});
+  document.querySelectorAll(".reveal,.reveal-left,.reveal-right").forEach(e=>obs.observe(e));
 
-    // ── Scroll reveal ──
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-    // ── Active nav link ──
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll(".nav-links a");
-
-    window.addEventListener("scroll", () => {
-      let current = "";
-      sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 80) current = s.id;
-      });
-      navLinks.forEach(a => {
-        a.style.color = a.getAttribute("href") === "#" + current ? "#e6cd0f" : "";
-      });
+  // ── Active nav ──
+  const secs=document.querySelectorAll("section[id]");
+  const links=document.querySelectorAll(".nav-links a");
+  window.addEventListener("scroll",()=>{
+    let cur="";
+    secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id});
+    links.forEach(a=>{
+      a.classList.toggle("active",a.getAttribute("href")==="#"+cur);
     });
-  </script>
+  });
+
+  // ── Contact form → Gmail ──
+  function sendEmail(){
+    const name=document.getElementById("f-name").value.trim();
+    const email=document.getElementById("f-email").value.trim();
+    const subject=document.getElementById("f-subject").value.trim()||"Portfolio Inquiry";
+    const msg=document.getElementById("f-msg").value.trim();
+    if(!name||!msg){alert("Please fill in your name and message.");return}
+    const body=`Hi Muhammad Aryan,%0A%0AFrom: ${encodeURIComponent(name)} (${encodeURIComponent(email)})%0A%0A${encodeURIComponent(msg)}`;
+    window.open(`mailto:aryanlytics@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`);
+  }
+</script>
 </body>
 </html>
