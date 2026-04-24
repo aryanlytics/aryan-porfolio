@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Aryan – Full Stack Developer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #171717;
+      --border: #222;
+      --yellow: #e6cd0f;
+      --yellow2: #f6df86;
+      --white: #fafafa;
+      --muted: #888;
+      --text: #d0d0d0;
+      --blue: #3b82f6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { color: var(--white); font-size: 1.3rem; font-weight: 700; letter-spacing: -0.5px; }
+    .logo span { color: var(--yellow); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 5%; }
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--yellow); margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white); font-weight: 700; margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .section-sub { color: var(--muted); max-width: 540px; font-size: 1rem; }
+    .divider {
+      width: 48px; height: 3px;
+      background: var(--yellow); margin: 20px 0 40px;
+      border-radius: 2px;
+    }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 64px;
+    }
+    .hero-inner {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: 60px; width: 100%; max-width: 1100px; margin: 0 auto;
+    }
+    .hero-left { flex: 1; }
+    .hero-badge {
+      display: inline-block;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 100px; padding: 4px 16px;
+      font-size: 0.78rem; color: var(--yellow);
+      letter-spacing: 1px; margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      color: var(--white); font-weight: 800;
+      line-height: 1.15; margin-bottom: 20px;
+    }
+    .hero-title .accent { color: var(--yellow); }
+    .hero-desc { color: var(--muted); font-size: 1.05rem; margin-bottom: 36px; max-width: 480px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      padding: 11px 26px; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: all .2s; border: none; display: inline-block;
+    }
+    .btn-primary { background: var(--yellow); color: #000; }
+    .btn-primary:hover { background: var(--yellow2); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    .hero-right { flex-shrink: 0; }
+    .avatar-wrap {
+      width: 260px; height: 260px;
+      border-radius: 50%; overflow: hidden;
+      border: 3px solid var(--yellow);
+      box-shadow: 0 0 60px rgba(230,205,15,0.15);
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+    .about-inner {
+      display: flex; gap: 60px; align-items: flex-start;
+      max-width: 1100px; margin: 0 auto; flex-wrap: wrap;
+    }
+    .about-text { flex: 1; min-width: 280px; }
+    .about-text p { color: var(--text); margin-bottom: 16px; font-size: 1rem; }
+    .about-text p strong { color: var(--white); }
+    .about-stats { display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
+    .stat { }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--yellow); }
+    .stat-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ── SKILLS ── */
+    #skills { max-width: 1100px; margin: 0 auto; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px;
+      transition: border-color .2s, transform .2s;
+    }
+    .skill-card:hover { border-color: var(--yellow); transform: translateY(-2px); }
+    .skill-icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .skill-name { color: var(--white); font-weight: 600; font-size: 0.95rem; }
+    .skill-desc { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg2); }
+    .projects-inner { max-width: 1100px; margin: 0 auto; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+      transition: border-color .2s, transform .2s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
+    .project-tag {
+      display: inline-block; background: rgba(230,205,15,0.1);
+      color: var(--yellow); border-radius: 100px;
+      padding: 2px 12px; font-size: 0.75rem;
+      font-weight: 600; margin-bottom: 14px;
+      border: 1px solid rgba(230,205,15,0.2);
+    }
+    .project-name { color: var(--white); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .project-desc { color: var(--muted); font-size: 0.9rem; flex: 1; margin-bottom: 20px; }
+    .project-stack { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .tag {
+      background: var(--bg2); color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px; padding: 2px 10px; font-size: 0.75rem;
+    }
+    .project-links { display: flex; gap: 12px; }
+    .project-link {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      display: flex; align-items: center; gap: 4px;
+      transition: color .2s;
+    }
+    .project-link:hover { color: var(--yellow); }
+
+    /* ── CONTACT ── */
+    #contact { max-width: 680px; margin: 0 auto; text-align: center; }
+    .contact-links {
+      display: flex; gap: 16px; justify-content: center;
+      flex-wrap: wrap; margin-top: 32px;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 22px;
+      text-decoration: none; color: var(--text);
+      font-size: 0.9rem; transition: all .2s;
+    }
+    .contact-link:hover { border-color: var(--yellow); color: var(--white); transform: translateY(-2px); }
+    .contact-icon { font-size: 1.2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 32px;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.85rem;
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── TYPING CURSOR ── */
+    .cursor { border-right: 2px solid var(--yellow); animation: blink .7s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    @media(max-width:768px) {
+      .hero-inner { flex-direction: column-reverse; text-align: center; }
+      .hero-btns { justify-content: center; }
+      .hero-desc { margin: 0 auto 36px; }
+      .about-inner { flex-direction: column; }
+      nav { padding: 0 4%; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Aryan<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge">📍 Islamabad, Pakistan</div>
+        <h1 class="hero-title">
+          Building <span class="accent">Data-Driven</span><br/>
+          Web Applications<br/>
+          <span id="typed" class="accent"></span><span class="cursor" id="cursor">|</span>
+        </h1>
+        <p class="hero-desc">
+          Self-taught developer with 8+ months hands-on experience in data engineering and full stack development. I build systems that handle real data at scale — from Kafka pipelines to production web apps.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Get In Touch</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="avatar-wrap">🧑‍💻</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-inner reveal">
+      <div class="about-text">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">The Story Behind the Code</h2>
+        <div class="divider"></div>
+        <p>
+          I'm <strong>Muhammad Aryan</strong>, a self-taught developer from Peshawar, now based in Islamabad. I started with data analytics, went deep into data engineering — building production pipelines with Kafka, PySpark, Airflow, and BigQuery — and now I'm channeling that systems thinking into full stack web development.
+        </p>
+        <p>
+          What makes me different: I don't just build UIs. I understand <strong>how data flows through systems</strong>, how to design databases properly, and how to build backends that can actually scale. Most developers learn web first. I learned scale first.
+        </p>
+        <p>
+          I completed FSc and have been building real projects through self-directed learning for over 8 months. I learn fast, build fast, and I'm not afraid of hard problems.
+        </p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-num">8+</div>
+            <div class="stat-label">Months Building</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Production Projects</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Problems Debugged</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div style="max-width:1100px;margin:0 auto">
+      <div class="section-label reveal">What I Work With</div>
+      <h2 class="section-title reveal">Skills & Stack</h2>
+      <div class="divider reveal"></div>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-icon">⚡</div>
+          <div class="skill-name">Apache Kafka</div>
+          <div class="skill-desc">Real-time event streaming, multi-broker clusters, KRaft mode</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🔥</div>
+          <div class="skill-name">PySpark</div>
+          <div class="skill-desc">Distributed batch processing, structured streaming, Delta Lake</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🐍</div>
+          <div class="skill-name">Python</div>
+          <div class="skill-desc">Production-level code, FastAPI, data pipelines, automation</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">☁️</div>
+          <div class="skill-name">AWS</div>
+          <div class="skill-desc">S3, IAM, Athena — data lake architecture on cloud</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🗄️</div>
+          <div class="skill-name">Databases</div>
+          <div class="skill-desc">PostgreSQL, MongoDB, BigQuery, Redis, Cassandra</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🐳</div>
+          <div class="skill-name">Docker</div>
+          <div class="skill-desc">Containerization, Docker Compose, multi-service environments</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🌊</div>
+          <div class="skill-name">Airflow</div>
+          <div class="skill-desc">DAG orchestration, scheduled pipelines, failure handling</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🌐</div>
+          <div class="skill-name">Web Dev</div>
+          <div class="skill-desc">HTML, CSS, JavaScript, React — learning & building fast</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="projects-inner">
+      <div class="section-label reveal">What I've Built</div>
+      <h2 class="section-title reveal">Projects</h2>
+      <div class="divider reveal"></div>
+      <div class="projects-grid">
+
+        <div class="project-card reveal">
+          <span class="project-tag">Data Engineering</span>
+          <div class="project-name">Daraz Intel — Price Intelligence Pipeline</div>
+          <div class="project-desc">
+            Automated pipeline scraping ~600 products daily from Daraz.pk across 5 categories. Runs quality checks, loads to Google BigQuery, orchestrated by Apache Airflow on Docker. Tracks price history daily for trend analysis.
+          </div>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">Airflow</span>
+            <span class="tag">BigQuery</span>
+            <span class="tag">Docker</span>
+            <span class="tag">pandas</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/aryanlytics/daraz-intel" target="_blank" class="project-link">⬡ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <span class="project-tag">Data Engineering</span>
+          <div class="project-name">Real Estate Intelligence Pipeline</div>
+          <div class="project-desc">
+            ETL pipeline scraping Islamabad property listings from Graana.com. Handles multi-unit normalization (Marla/Kanal/sqft), Pakistani price labeling (Crore/Lac), data quality validation, and loads to BigQuery partitioned by date.
+          </div>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">BigQuery</span>
+            <span class="tag">Pydantic</span>
+            <span class="tag">pandas</span>
+            <span class="tag">Docker</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/aryanlytics/Real-Estate-Intelligence" target="_blank" class="project-link">⬡ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <span class="project-tag">Streaming + Cloud</span>
+          <div class="project-name">E-Commerce Event Intelligence Platform</div>
+          <div class="project-desc">
+            Real-time + batch data platform. Kafka with 2-broker KRaft cluster ingests 40 events/sec across 4 topics. Python consumer writes Bronze Parquet to AWS S3 with data quality checks and quarantine layer. PySpark Silver transformation with Delta Lake.
+          </div>
+          <div class="project-stack">
+            <span class="tag">Kafka</span>
+            <span class="tag">PySpark</span>
+            <span class="tag">AWS S3</span>
+            <span class="tag">Delta Lake</span>
+            <span class="tag">Docker</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/aryanlytics" target="_blank" class="project-link">⬡ GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label reveal">Let's Talk</div>
+    <h2 class="section-title reveal">Get In Touch</h2>
+    <div class="divider reveal" style="margin:20px auto 16px"></div>
+    <p class="reveal" style="color:var(--muted);margin-bottom:8px">
+      I'm open to internships, junior roles, and freelance projects. If you're building something interesting — reach out.
+    </p>
+    <div class="contact-links reveal">
+      <a href="mailto:aryanlytics@gmail.com" class="contact-link">
+        <span class="contact-icon">✉️</span> aryanlytics@gmail.com
+      </a>
+      <a href="https://github.com/aryanlytics" target="_blank" class="contact-link">
+        <span class="contact-icon">⬡</span> GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/muhammadaryan008/" target="_blank" class="contact-link">
+        <span class="contact-icon">💼</span> LinkedIn
+      </a>
+      <a href="https://wa.me/923400407475" target="_blank" class="contact-link">
+        <span class="contact-icon">💬</span> WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Muhammad Aryan — Built with HTML, CSS & JavaScript</p>
+  </footer>
+
+  <script>
+    // ── Typing animation ──
+    const phrases = ["that actually scales.", "with real data pipelines.", "for the modern web."];
+    let pi = 0, ci = 0, deleting = false;
+    const el = document.getElementById("typed");
+
+    function type() {
+      const phrase = phrases[pi];
+      if (!deleting) {
+        el.textContent = phrase.slice(0, ++ci);
+        if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+      } else {
+        el.textContent = phrase.slice(0, --ci);
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+      }
+      setTimeout(type, deleting ? 40 : 80);
+    }
+    type();
+
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    // ── Active nav link ──
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 80) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute("href") === "#" + current ? "#e6cd0f" : "";
+      });
+    });
+  </script>
+</body>
+</html>
